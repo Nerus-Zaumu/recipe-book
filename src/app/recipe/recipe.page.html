@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>recipe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  style="text-align: center; font-size: 2rem">
+  <ion-text>Welcome to my recipes</ion-text>
+  <ion-grid>
+    <ion-row>
+      <ion-col  size-md="6" offset-md="3">
+        <form [formGroup]="recipeService.recipeForm">
+          <ion-item>
+            <ion-label position="floating">Recipe ID</ion-label>
+            <ion-input type="text" formControlName="id"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Recipe Title</ion-label>
+            <ion-input type="text" formControlName="title"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Image URL</ion-label>
+            <ion-input type="text" formControlName="imageUrl"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Ingredients</ion-label>
+            <ion-select multiple="true" formControlName="ingredients">
+              <ion-select-option value="Beans">Beans</ion-select-option>
+              <ion-select-option value="Rice">Rice</ion-select-option>
+              <ion-select-option value="Eggs">Eggs</ion-select-option>
+              <ion-select-option value="Pea">Pea</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-buttons>
+            <ion-button (click)="recipeService.clearRecipeForm()">Clear Form</ion-button>
+            <ion-button type="button" (click)="recipeService.submitRecipe()">Submit Form</ion-button>
+          </ion-buttons>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item-group *ngIf="recipeList.length > 0">
+    <ion-list-header>
+      <h1>List of Recipes</h1>
+    </ion-list-header>
+    <ion-item *ngFor="let recipe of recipeList">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>Recipe ID: {{ recipe.id }}</ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>Recipe Title: {{ recipe.title }}</ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-img [src]="recipe.imageUrl" [routerLink]="['/recipe', recipe.id]"></ion-img>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list *ngFor="let ingredient of recipe.ingredients">
+              <ion-item>{{ ingredient }}</ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-item-group>
+</ion-content>
