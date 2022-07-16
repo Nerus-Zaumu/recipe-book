@@ -18,6 +18,8 @@ log.txt
 npm-debug.log*
 
 /.angular
+/.node_modules
+/.environments
 /.idea
 /.ionic
 /.sass-cache
